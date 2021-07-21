@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Números para romanos</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		const CALC =   [ 1,    4,   5,    9,  10,   40,  50,   90, 100,  400, 500,  900, 1000].reverse();
+		const ROMANS = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM',  'M'].reverse();
+
+		function convertToRoman(number) {
+			let remainder = number;
+			let pos = 0;
+			let roman = [];
+			while (remainder > 0) {
+				if (remainder >= CALC[pos]) {
+					roman.push(ROMANS[pos])
+					remainder -= CALC[pos];
+				} else {
+					++pos;
+				}
+			}
+			return roman.join('');
+		}
+
+		function convert() {
+			const number = document.getElementById('number').value;
+			const result = document.getElementById('roman');
+			if (number) {
+				result.innerHTML = 'O número ' + number + ' em romano é: ' + convertToRoman(number);
+			} else {
+				result.innerHTML = 'Número inválido!';
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="container mt-5">
+		<div class="input-group mb-3">
+			<span class="input-group-text" id="basic-addon1">Número</span>
+			<input id="number" type="number" min="1" max="3999" class="form-control" placeholder="Digite o número para converter" aria-label="Digite o número para converter" aria-describedby="basic-addon1">
+		</div>
+		<div class="d-grid gap-2">
+			<button type="button" class="btn btn-primary mb-5 btn-block" onclick="convert()">Converter</button>
+		</div>
+		<div id="roman" class="alert alert-success" role="alert">Digite o número e clique em converter!</div>
+		<div id="roman" class="alert alert-info mt-5" role="alert">Código fonte: <a href="https://github.com/suchorski/Conversor-de-Romanos">https://github.com/suchorski/Conversor-de-Romanos</a></div>
+	</div>
+</body>
+</html>
